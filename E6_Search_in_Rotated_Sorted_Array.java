@@ -9,13 +9,13 @@ public class E6_Search_in_Rotated_Sorted_Array {
         if (high == low)
             return low;
         
-        int mid = (low + high) / 2;
+        int mid = (low + (high - low)/2);
         // Condition for Pivot or Minimum Element
         // If number at Mid is Smaller than both its Neighbour elements then it is PIVOT element
-        if (arr[mid] < arr[(mid + 1) % arr.length] && arr[mid] < arr[(mid + arr.length - 1) % arr.length])
+        if (arr[mid] < arr[(mid + 1) % arr.length] && arr[mid] < arr[(mid + arr.length) % arr.length])
             return mid;
         // If its not the Case then the PIVOT element is present in UNSORTED part of array
-        if (arr[low] >= arr[mid])
+        if (arr[0] > arr[mid])
         //Means The array portion (low, mid) is UnSorted, Pivot is present in this part, so (high = mid - 1)    
             return findPivotElement(arr, low, mid - 1);
         //Means The array portion (mid, high) is UnSorted, Pivot is present in this part so (low = mid + 1)
@@ -27,12 +27,12 @@ public class E6_Search_in_Rotated_Sorted_Array {
         if(low > high) { //NOT FOUND
             return -1;
         }
-        int mid = (low + high) / 2;
+        int mid = (low + (high - low)/2);
         if(arr[mid] == key) {
             return mid;
         }
         if(arr[mid] > key) {
-            return binarySearch(arr, low, mid - 1, key);
+            return binarySearch(arr, low, mid, key);
         }
         return binarySearch(arr, mid + 1, high, key);
     }
@@ -49,7 +49,7 @@ public class E6_Search_in_Rotated_Sorted_Array {
         if (arr[pivot] == key)
             return pivot;
         if (arr[0] <= key)
-            return binarySearch(arr, 0, pivot - 1, key);
+            return binarySearch(arr, 0, pivot, key);
         return binarySearch(arr, pivot + 1, n - 1, key);
     }
     
